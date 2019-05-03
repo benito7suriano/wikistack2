@@ -11,22 +11,22 @@ const userRoute = require('./routes/user')
 const {db, Page, User} = require('./models')
 
 const init = async () => {
-  await db.sync({force: true})
+  await db.sync({ force: true })
 
   app.listen(PORT, console.log(`Server listening on port ${PORT}`))
 }
 
 db.authenticate().
-then(() => {
-  console.log('connected to the db')
-})
+  then(() => {
+    console.log('Connected to the db')
+  })
 
 app.use(morgan('dev'))
 app.use(express.urlencoded( { extended:false } ))
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/wiki', wikiRoute)
-app.get('/users', userRoute)
+app.use('/wiki', wikiRoute)
+app.use('/users', userRoute)
 
 app.get('/', (req,res,next)=> {
   res.send(layout('Empty string of nothing'))
