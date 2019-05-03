@@ -5,6 +5,9 @@ const path = require('path')
 const layout = require('./views/layout')
 const PORT = 1337
 
+const wikiRoute = require('./routes/wiki')
+const userRoute = require('./routes/user')
+
 const {db, Page, User} = require('./models')
 
 const init = async () => {
@@ -21,6 +24,9 @@ then(() => {
 app.use(morgan('dev'))
 app.use(express.urlencoded( { extended:false } ))
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.get('/wiki', wikiRoute)
+app.get('/users', userRoute)
 
 app.get('/', (req,res,next)=> {
   res.send(layout('Empty string of nothing'))
