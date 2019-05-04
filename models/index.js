@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = new Sequelize('postgres://localhost:5432/wikistack2',{logging: false})
+const generateSlug = require('../generateSlug')
 
 const Page = db.define('pages', {
   title: {
@@ -17,6 +18,10 @@ const Page = db.define('pages', {
   status: Sequelize.ENUM('open', 'closed')
 })
 
+Page.beforeValidate((page) => {
+  page.slug = generateSlug(page.title)
+})
+
 const User = db.define('users', {
   name: {
     type: Sequelize.STRING,
@@ -31,6 +36,8 @@ const User = db.define('users', {
     }
   }
 })
+
+
 
 module.exports = { db, Page, User }
 

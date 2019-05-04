@@ -25,7 +25,7 @@ module.exports = () => layout(html`
     </div>
 
     <div class="form-group">
-      <textarea rows="10" cols="100" name="comment" form="usrform">Enter text here...</textarea>
+      <textarea rows="10" cols="100" id="content" name="content" class="form-control" placeholder="Enter text here..."></textarea>
     </div>
 
     <div class="form-group">

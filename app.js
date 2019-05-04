@@ -3,6 +3,7 @@ const app = express()
 const morgan = require('morgan')
 const path = require('path')
 const layout = require('./views/layout')
+const html = require('html-template-tag')
 const PORT = 1337
 
 const wikiRoute = require('./routes/wiki')
@@ -29,7 +30,9 @@ app.use('/wiki', wikiRoute)
 app.use('/users', userRoute)
 
 app.get('/', (req,res,next)=> {
-  res.send(layout('Empty string of nothing'))
+  res.send(layout(html`
+  <h1>Hello There! Welcome to Wikistack.</h1>
+  `))
 })
 
 init()
