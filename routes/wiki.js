@@ -6,7 +6,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  res.send('go to POST /wiki/')
+  res.json(req.body)
 })
 
 router.get('/add', (req, res, next) => {
