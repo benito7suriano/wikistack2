@@ -11,11 +11,23 @@ router.post('/', async (req, res, next) => {
 
   const page = new Page({
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
+    slug: req.body.slug,
+    status: req.body.status
   })
 
   try {
     await page.save()
+
+    console.log(`
+    A page was just posted... beep boop
+
+    Title: ${page.title}
+    Content: ${page.content}
+    Slug: ${page.slug}
+    Status: ${page.status}
+    `)
+
     res.redirect('/')
   } catch(err) {
     next(err)
@@ -24,6 +36,10 @@ router.post('/', async (req, res, next) => {
 
 router.get('/add', (req, res, next) => {
   res.send(addPage())
+})
+
+router.get('/:slug', (req, res, next) => {
+  res.send(`hit dynamic route at ${req.params.slug}`)
 })
 
 module.exports = router
