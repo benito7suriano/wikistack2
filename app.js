@@ -12,7 +12,7 @@ const userRoute = require('./routes/user')
 const {db, Page, User} = require('./models')
 
 const init = async () => {
-  await db.sync({ force: true })
+  await db.sync({})
 
   app.listen(PORT, console.log(`Server listening on port ${PORT}`))
 }
