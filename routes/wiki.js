@@ -28,7 +28,7 @@ router.post('/', async (req, res, next) => {
     Status: ${page.status}
     `)
 
-    res.redirect('/')
+    res.redirect(`/wiki/${page.slug}`)
   } catch(err) {
     next(err)
   }
