@@ -1,5 +1,5 @@
-const html = require("html-template-tag");
-const layout = require("./layout");
+const html = require('html-template-tag')
+const layout = require('./layout')
 
 module.exports = (page, author) => layout(html`
   <h3>${page.title}
@@ -11,4 +11,4 @@ module.exports = (page, author) => layout(html`
   <hr/>
   <a href="/wiki/${page.slug}/edit" class="btn btn-primary">edit this page</a>
   <a href="/wiki/${page.slug}/delete" class="btn btn-danger">delete this page</a>
-`);
+`)
