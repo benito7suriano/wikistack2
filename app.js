@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const path = require('path')
-const layout = require('./views/layout')
+const { main } = require('./views')
 const html = require('html-template-tag')
 const PORT = 1337
 
@@ -29,13 +29,15 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/wiki', wikiRoute)
 app.use('/users', userRoute)
 
-app.get('/', (req,res,next)=> {
-  res.send(layout(html`
-  <h1>Hello There! Welcome to Wikistack.</h1>
-  `))
+app.get('/', async (req,res,next) => {
+
+  try {
+    const pages = await Page.findAll()
+    res.send(main(pages))
+
+  } catch(err) {
+    next(err)
+  }
 })
 
 init()
-
-
-

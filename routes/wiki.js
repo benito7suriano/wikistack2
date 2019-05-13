@@ -39,7 +39,6 @@ router.get('/add', (req, res, next) => {
 })
 
 router.get('/:slug', async (req, res, next) => {
-  console.log(`hit dynamic route at ${req.params.slug}`)
 
   try {
     const page = await Page.findOne({

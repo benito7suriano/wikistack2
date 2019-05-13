@@ -1,5 +1,5 @@
-const html = require("html-template-tag");
-const layout = require("./layout");
+const html = require('html-template-tag')
+const layout = require('./layout')
 
 module.exports = (pages) => layout(html`
   <h3>Pages</h3>
@@ -12,5 +12,8 @@ module.exports = (pages) => layout(html`
   <ul class="list-unstyled">
     <ul>
       <!-- PLACEHOLDER LIST OF PAGES -->
+      ${pages.map(page => {
+        return html`<ul><a href="/wiki/${page.slug}"> ${page.title} </a></ul>`
+      })}
     </ul>
-  </ul>`);
+  </ul>`)
