@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User } = require('../models')
+const { User, Page } = require('../models')
 const { userList, userPages } = require('../views')
 
 router.get('/', async (req, res, next) => {
@@ -19,7 +19,13 @@ router.get('/:userId', async (req, res, next) => {
       }
     })
 
-    res.send(userPages(user))
+    const pagesByUser = await Page.findAll({
+      where: {
+        authorId: req.params.userId
+      }
+    })
+
+    res.send(userPages(user, pagesByUser))
   } catch (err) {
     next(err)
   }
