@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Page } = require('../models/')
+const { Page, User } = require('../models/')
 const { addPage, wikiPage } = require('../views/')
 
 router.get('/', (req, res, next) => {
@@ -7,17 +7,18 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  // res.json(req.body)
-
-  const page = new Page({
-    title: req.body.title,
-    content: req.body.content,
-    slug: req.body.slug,
-    status: req.body.status
-  })
 
   try {
-    await page.save()
+    const page = await Page.create(req.body)
+
+    const [user, wasCreated] = await User.findOrCreate({
+      where: {
+        name: req.body.authorName,
+        email: req.body.authorEmail
+      }
+    })
+
+    page.setAuthor(user)
 
     console.log(`
     A page was just posted... beep boop
@@ -26,8 +27,13 @@ router.post('/', async (req, res, next) => {
     Content: ${page.content}
     Slug: ${page.slug}
     Status: ${page.status}
+    _________________________
+
+    Author: ${user.name}
+    Email: ${user.email}
     `)
 
+    // res.json(req.body)
     res.redirect(`/wiki/${page.slug}`)
   } catch(err) {
     next(err)
