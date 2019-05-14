@@ -3,7 +3,7 @@ const { Page, User } = require('../models/')
 const { addPage, wikiPage } = require('../views/')
 
 router.get('/', (req, res, next) => {
-  res.redirect('/wiki')
+  res.redirect('/')
 })
 
 router.post('/', async (req, res, next) => {
