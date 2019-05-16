@@ -12,7 +12,7 @@ const userRoute = require('./routes/user')
 const {db, Page, User} = require('./models')
 
 const init = async () => {
-  await db.sync({})
+  await db.sync()
 
   app.listen(PORT, console.log(`Server listening on port ${PORT}`))
 }
@@ -35,9 +35,7 @@ app.get('/', async (req,res,next) => {
     const pages = await Page.findAll()
     res.send(main(pages))
 
-  } catch(err) {
-    next(err)
-  }
+  } catch(err) { next(err) }
 })
 
 init()

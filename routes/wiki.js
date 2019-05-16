@@ -7,9 +7,10 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  const page = new Page(req.body)
 
   try {
-    const page = await Page.create(req.body)
+    await page.save()
 
     const [user, wasCreated] = await User.findOrCreate({
       where: {
@@ -18,7 +19,7 @@ router.post('/', async (req, res, next) => {
       }
     })
 
-    page.setAuthor(user)
+    await page.setAuthor(user)
 
     console.log(`
     A page was just posted... beep boop
@@ -27,14 +28,15 @@ router.post('/', async (req, res, next) => {
     Content: ${page.content}
     Slug: ${page.slug}
     Status: ${page.status}
+    AuthorId: ${page.authorId}
     _________________________
 
     Author: ${user.name}
     Email: ${user.email}
     `)
 
-    // res.json(req.body)
     res.redirect(`/wiki/${page.slug}`)
+
   } catch(err) {
     next(err)
   }
@@ -53,13 +55,12 @@ router.get('/:slug', async (req, res, next) => {
       }
     })
 
+    // BUG
     const authors = await page.getAuthor()
-    const author = authors.dataValues
+    console.log(authors)
 
-    console.log(author)
+    res.send(wikiPage(page, authors))
 
-    res.send(wikiPage(page, author))
-    // res.json(page)
   } catch(err) {
     next(err)
   }
