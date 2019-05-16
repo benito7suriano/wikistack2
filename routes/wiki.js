@@ -55,11 +55,12 @@ router.get('/:slug', async (req, res, next) => {
       }
     })
 
-    // BUG
-    const authors = await page.getAuthor()
-    console.log(authors)
-
-    res.send(wikiPage(page, authors))
+    if(page) {
+      const author = await page.getAuthor()
+      res.send(wikiPage(page, author))
+    } else {
+      res.send('A page with this title does not exist')
+    }
 
   } catch(err) {
     next(err)
