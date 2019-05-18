@@ -102,4 +102,17 @@ router.get('/:slug/edit', async (req, res, next) => {
   } catch(err) {next(err)}
 })
 
+router.get('/:slug/delete', async(req, res, next) => {
+  try {
+    await Page.destroy({
+      where: {
+        slug: req.params.slug
+      }
+    })
+
+    res.redirect('/')
+
+  } catch(err) {next(err)}
+})
+
 module.exports = router
