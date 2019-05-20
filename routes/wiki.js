@@ -21,20 +21,6 @@ router.post('/', async (req, res, next) => {
 
     await page.setAuthor(user)
 
-    console.log(`
-    A page was just posted... beep boop
-
-    Title: ${page.title}
-    Content: ${page.content}
-    Slug: ${page.slug}
-    Status: ${page.status}
-    AuthorId: ${page.authorId}
-    _________________________
-
-    Author: ${user.name}
-    Email: ${user.email}
-    `)
-
     res.redirect(`/wiki/${page.slug}`)
 
   } catch(err) {
@@ -51,12 +37,6 @@ router.post('/:slug', async (req, res, next) => {
       returning: true
     })
 
-    console.log(`
-    Just updated a page.
-
-    ${updatedPages}
-    `)
-
     res.redirect(`/wiki/${updatedPages[0].slug}`)
   } catch(err) {next(err)}
 })
@@ -66,7 +46,6 @@ router.get('/add', (req, res, next) => {
 })
 
 router.get('/:slug', async (req, res, next) => {
-
   try {
     const page = await Page.findOne({
       where: {
@@ -77,8 +56,10 @@ router.get('/:slug', async (req, res, next) => {
     if(page) {
       const author = await page.getAuthor()
       res.send(wikiPage(page, author))
+
     } else {
-      res.send('A page with this title does not exist')
+      res.send('A page with this title does not exist').status(404)
+
     }
 
   } catch(err) {
