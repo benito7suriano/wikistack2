@@ -1,7 +1,7 @@
 const http = require('http')
 const app = require('./app')
 
-const { db, Page, User } = require('./models')
+const { db } = require('./models')
 
 const PORT = 1337
 
