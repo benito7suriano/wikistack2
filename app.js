@@ -1,23 +1,12 @@
 const express = require('express')
-const app = express()
 const morgan = require('morgan')
 const path = require('path')
-const { main } = require('./views')
 const html = require('html-template-tag')
-const PORT = 1337
 
-const {db, Page, User} = require('./models')
+const { main } = require('./views')
+const { db, Page, User } = require('./models')
 
-const init = async () => {
-  await db.sync()
-
-  app.listen(PORT, console.log(`Server listening on port ${PORT}`))
-}
-
-db.authenticate().
-  then(() => {
-    console.log('Connected to the db')
-  })
+const app = express()
 
 app.use(morgan('dev'))
 app.use(express.urlencoded( { extended:false } ))
@@ -35,4 +24,4 @@ app.get('/', async (req,res,next) => {
   } catch(err) { next(err) }
 })
 
-init()
+module.exports = app
