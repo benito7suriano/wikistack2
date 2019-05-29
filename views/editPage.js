@@ -1,7 +1,12 @@
 const html = require('html-template-tag')
 const layout = require('./layout')
 
-module.exports = (page, author) => layout(html`
+module.exports = (page, author) => {
+  const split = (str) => {
+    return str.split(' ')
+  }
+
+  return layout(html`
   <h3>Edit a Page</h3>
   <hr>
   <form method="POST" action="/wiki/${page.slug}">
@@ -28,6 +33,13 @@ module.exports = (page, author) => layout(html`
     </div>
 
     <div class="form-group">
+      <label for="tags" class="col-sm-2 control-label">Page Tags</label>
+      <div class="col-sm-10">
+        <input name="tags" type="text" class="form-control" value="${page.tags.join(' ')}"/>
+      </div>
+    </div>
+
+    <div class="form-group">
       <label for="content" class="col-sm-2 control-label">Content</label>
       <textarea name="content" type="text" class="form-control" rows="4">${page.content}</textarea>
     </div>
@@ -46,4 +58,5 @@ module.exports = (page, author) => layout(html`
         <button type="submit" class="btn btn-primary">submit</button>
     </div>
   </form>
-`)
+  `)
+}
