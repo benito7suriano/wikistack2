@@ -26,9 +26,8 @@ app.get('/', async (req,res,next) => {
   } catch(err) { next(err) }
 })
 
-app.get('/*', async (req,res,next) => {
-  res.status(404)
-  res.send(notFound())
+app.get((req,res,next) => {
+  res.status(404).send(notFound())
 })
 
 module.exports = app
