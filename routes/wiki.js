@@ -32,7 +32,7 @@ router.post('/', async (req, res, next) => {
 
 router.post('/:slug', async (req, res, next) => {
   try {
-    [updatedRowCount, updatedPages] = await Page.update(req.body, {
+    [updatedRowCount, updatedPages] = await Page.update({ ...req.body, tags: req.body.tags.split(' ')}, {
       where: {
         slug: req.params.slug
       },

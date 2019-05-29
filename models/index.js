@@ -7,6 +7,7 @@ const Page = db.define('pages', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  tags: Sequelize.ARRAY(Sequelize.TEXT),
   slug: {
     type: Sequelize.STRING,
     allowNull: false
@@ -15,8 +16,7 @@ const Page = db.define('pages', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  status: Sequelize.ENUM('open', 'closed'),
-  tags: Sequelize.ARRAY(Sequelize.TEXT)
+  status: Sequelize.ENUM('open', 'closed')
 })
 
 Page
