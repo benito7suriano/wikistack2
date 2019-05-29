@@ -20,8 +20,12 @@ module.exports = () => layout(html`
 
     <div class="form-group">
       <label for="title" class="col-sm-2 control-label">Page Title</label>
-
         <input id="title" name="title" type="text" class="form-control"/> <br>
+    </div>
+
+    <div class="form-group">
+      <label for="tags" class="col-sm-2 control-label">Page Tags</label>
+        <input id="tags" name="tags" type="text" class="form-control"/> <br>
     </div>
 
     <div class="form-group">

@@ -5,5 +5,6 @@ const userList = require('./userList')
 const userPages = require('./userPages')
 const wikiPage = require('./wikiPage')
 const notFound = require('./notFound')
+const shit = require('./shit')
 
-module.exports = { addPage, editPage, main, userList, userPages, wikiPage, notFound }
+module.exports = { addPage, editPage, main, userList, userPages, wikiPage, notFound, shit }

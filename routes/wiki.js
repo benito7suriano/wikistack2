@@ -26,6 +26,8 @@ router.post('/', async (req, res, next) => {
   } catch(err) {
     next(err)
   }
+
+  // res.json(req.body)
 })
 
 router.post('/:slug', async (req, res, next) => {
@@ -58,8 +60,7 @@ router.get('/:slug', async (req, res, next) => {
       res.send(wikiPage(page, author))
 
     } else {
-      res.send('A page with this title does not exist').status(404)
-
+      res.status(404).send('A page with this title does not exist')
     }
 
   } catch(err) {

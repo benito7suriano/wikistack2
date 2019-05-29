@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const html = require('html-template-tag')
 
-const { main, notFound } = require('./views')
+const { main, notFound, shit } = require('./views')
 const { Page, User } = require('./models')
 
 const app = express()
@@ -26,8 +26,12 @@ app.get('/', async (req,res,next) => {
   } catch(err) { next(err) }
 })
 
-app.get((req,res,next) => {
+app.use((req,res,next) => {
   res.status(404).send(notFound())
+})
+
+app.use((err,req,res,next) => {
+  res.status(500).send(shit())
 })
 
 module.exports = app

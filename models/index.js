@@ -15,10 +15,15 @@ const Page = db.define('pages', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  status: Sequelize.ENUM('open', 'closed')
+  status: Sequelize.ENUM('open', 'closed'),
+  tags: Sequelize.ARRAY(Sequelize.TEXT)
 })
 
-Page.beforeValidate((page) => {
+Page
+  .beforeCreate((page) => {
+  page.tags = page.tags.split(' ')
+})
+  .beforeValidate((page) => {
   page.slug = generateSlug(page.title)
 })
 
